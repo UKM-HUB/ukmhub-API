@@ -8,8 +8,7 @@ describe('test routing coop',function(){
   it('Should return you dont have access token',function(done){
     chai.request('http://ukmhub-api-prod.ap-southeast-1.elasticbeanstalk.com').get(`/api/coop`)
     .end(function (err, res) {
-
-    res.should.be.an('object');
+      res.should.be.an('object');
     done()
     })
   })
