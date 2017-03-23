@@ -80,9 +80,6 @@ module.exports={
           res.send(err)
         }
         else{
-          if(req.body.images){
-            company.images = req.body.images
-          }
           company.name = req.body.name
           company.type = req.body.type
           company.category = req.body.category
@@ -92,8 +89,9 @@ module.exports={
           company.address = req.body.address
           company.phone = req.body.phone
           company.description = req.body.description
+          company.images = req.body.images
           company.updated_at = new Date()
-          company.edited = true
+          edited = true
           company.save(function(err){
             if(err){
               res.send(err)
