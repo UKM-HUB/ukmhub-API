@@ -1,11 +1,11 @@
 branch-defaults:
   default:
-    environment: ukmhub-api-prod
+    environment: ukmhub-api-dev
     group_suffix: null
 global:
   application_name: ukmhub-api
   branch: null
-  default_ec2_keyname: ukmhub
+  default_ec2_keyname: aws-eb-ukmhub
   default_platform: Node.js
   default_region: ap-southeast-1
   instance_profile: null

@@ -19,6 +19,7 @@ var defaultReqImage = require ('../public/image/box-outline-filled.png')
 var validationEditProfile = require('../helpers/validation/validationEditProfile')
 var validationRequest = require('../helpers/validation/validationRequest')
 var validationCreateLetter = require('../helpers/validation/validationCreateLetter')
+var validationChangePassword = require('../helpers/validation/validationChangePassword')
 
 function generatePassword() {
     var length = 5,
@@ -274,61 +275,66 @@ module.exports={
     })
   },
   createLetter:function(req,res){
-    Company.findByIdAndUpdate(req.params.id,{
-      $push:{
-            'letter':{
-              to:req.params.otherId,
-              from:req.params.id,
-              requestId:req.params.requestId,
-              title:req.body.title||'my offer',
-              date: new Date(),
-              status:'waiting',
-              message:req.body.message
-            },
-          }
-      },{
-        new:true
-      }, (err,data)=>{
-        if(err){
-          res.send(err)
-        }
-        else{
-          Company.findByIdAndUpdate(req.params.otherId,{
-            $push:{
-                  'acceptedMessages':{
-                    from:req.params.id,
-                    sender:data.name,
-                    letterId: data.letter[data.letter.length-1]._id,
-                    title:data.letter[data.letter.length-1].title,
-                    requestTitle: req.body.requestTitle,
-                    date: new Date(),
-                    status:'waiting',
-                    message:req.body.message
-                  },
-                }
-            },{
-              new:true
-            }, (err,datas)=>{
-              if(err){
-                res.send(err)
-              }
-              else{
-                sendEmail(datas.email,
-                   "You received a new message",
-                   `  <div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:30%;"/></div>
-                      <P>Dear <b>${datas.name}</b>,</P>
-                      <p>to respond your request with subject <i><b>${datas.requestTitle}</b></i>, <b>${data.name}</b> have send you a message with title <b>"<i>${data.letter[data.letter.length-1].title}</i>"</b> .</p>
-                      <p>please check your message box immediately to accept or refused the offer, Thank you for your attention </p>
-                      <br/>
-                    <p>regards,</p>
-                      <p>UKM HUB teams</p> `,
-                    "Your received new message", res)
-              }
+    validationCreateLetter(req.body.message, res, function(){
+      Company.findByIdAndUpdate(req.params.id,{
+        $push:{
+              'letter':{
+                to:req.params.otherId,
+                from:req.params.id,
+                requestId:req.params.requestId,
+                title:req.body.title||'my offer',
+                date: new Date(),
+                status:'waiting',
+                message:req.body.message
+              },
             }
-          )
+        },{
+          new:true
+        }, (err,data)=>{
+          if(err){
+            res.send(err)
+          }
+          else{
+            Company.findByIdAndUpdate(req.params.otherId,{
+              $push:{
+                    'acceptedMessages':{
+                      from:req.params.id,
+                      sender:data.name,
+                      letterId: data.letter[data.letter.length-1]._id,
+                      title:data.letter[data.letter.length-1].title,
+                      requestTitle: req.body.requestTitle,
+                      date: new Date(),
+                      status:'waiting',
+                      message:req.body.message
+                    },
+                  }
+              },{
+                new:true
+              }, (err,datas)=>{
+                if(err){
+                  res.send(err)
+                }
+                else{
+                  sendEmail(datas.email,
+                     "You received a new message",
+                     `    <div style="border:1px solid black;width:400px;margin:auto"><div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:30%;"/></div>
+                          <div style="margin-left:20%;margin-right:20%">
+                          <P>Dear <b>${datas.name}</b>,</P>
+                          <p>to respond your request with subject <i><b>${req.body.requestTitle}</b></i>, <b>${data.name}</b> have send you a message with title <b>"<i>${data.letter[data.letter.length-1].title}</i>"</b> .</p>
+                          <p>please check your message box immediately to accept or refused the offer, Thank you for your attention </p>
+                          <br/>
+                        <p>regards,</p>
+                          <p>UKM HUB teams</p>
+                          </div>
+                          </div> `,
+                      "Your received new message", res)
+                }
+              }
+            )
+          }
         }
-      }
-    )
+      )
+    })
   },
   acceptMessage: function(req,res){
     Company.findOne({_id:req.params.id}).then(function(result){
@@ -358,13 +364,16 @@ module.exports={
                               }
                               else{
                                 sendEmail(result2.email, "Accepted request",
-                                `  <div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:40%;"/></div>
-                                  <P>Dear <b>${result2.name}</b>,</P>
-                                  <p><b>${result.name}</b> have <b>Accepted</b> your offer with title <b><i>"${sender.title}"</i></b> with message of "${sender.message}".</p>
-                                  <p>for the request of <i><b>${receptor.title}</b></i>, contact <b>${result.name}</b> for futher information.</p>
-                                  <br/>
-                                  <p>regards,</p>
-                                  <p>UKM HUB teams</p> `,
+                                `  <div style="border:1px solid black;width:400px;margin:auto"><div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:30%;"/></div>
+                                    <div style="margin-left:20%;margin-right:20%">
+                                    <P>Dear <b>${result2.name}</b>,</P>
+                                    <p><b>${result.name}</b> have <b>Accepted</b> your offer with title <b><i>"${sender.title}"</i></b> with message of "${sender.message}".</p>
+                                    <p>for the request of <i><b>${receptor.requestTitle}</b></i>, contact <b>${result.name}</b> for futher information.</p>
+                                    <br/>
+                                    <p>regards,</p>
+                                    <p>UKM HUB teams</p>
+                                    </div>
+                                    </div> `,
                                   "Your request have been accepted"
                                   , res)
 
@@ -413,13 +422,16 @@ module.exports={
                               else{
                                 sendEmail(result2.email,
                                   "refused request",
-                                  `  <div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:40%;"/></div>
+                                  `   <div style="border:1px solid black;width:400px;margin:auto"><div style="text-align:center"><img src='https://raw.githubusercontent.com/UKM-HUB/ukm_hub/master/ukmhub.png' style="width:30%;"/></div>
+                                    <div style="margin-left:20%;margin-right:20%">
                                     <P>Dear <b>${result2.name}</b>,</P>
                                     <p><b>${result.name}</b> have refused your offer with title <b><i>"${sender.title}"</i></b> with message of "${sender.message}".</p>
-                                    <p>for the request of <i><b>${receptor.title}</b></i>, contact <b>${result.name}</b> for futher information.</p>
+                                    <p>for the request of <i><b>${receptor.requestTitle}</b></i>, contact <b>${result.name}</b> for futher information.</p>
                                     <br/>
                                     <p>regards,</p>
-                                    <p>UKM HUB teams</p> `
+                                    <p>UKM HUB teams</p>
+                                    </div>
+                                    </div>`
                                    ,"Your request have been refused", res)
 
                               }
@@ -434,6 +446,33 @@ module.exports={
             }
 
           })
+        }
+      })
+    })
+  },
+  changePassword: function(req,res){
+    validationChangePassword(req.body.oldPassword,req.body.newPassword,req.body.confirmNewPassword, res, function(){
+      Company.findOne({_id:req.params.id}).then(function(result){
+        console.log(passwordHash.verify(req.body.oldPassword, result.password));
+        if(passwordHash.verify(req.body.oldPassword, result.password)){
+          if(req.body.confirmNewPassword === req.body.newPassword){
+            result.password = passwordHash.generate(req.body.newPassword)
+            result.save(function(err){
+              if(err){
+                res.send(err)
+              }
+              else{
+                res.send('Your password has been changed!')
+              }
+            })
+          }
+          else{
+            res.send('your new password not match with the confirmation password!')
+          }
+        }
+
+        else{
+          res.send('Your old password is not the same as your input!')
         }
       })
     })
