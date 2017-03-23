@@ -89,7 +89,7 @@ module.exports={
           company.address = req.body.address
           company.phone = req.body.phone
           company.description = req.body.description
-          company.images = req.body.images||defaultCompanyImage
+          company.images = req.body.images||company.images
           company.updated_at = new Date()
           edited = true
           company.save(function(err){
