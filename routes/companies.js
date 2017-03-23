@@ -36,7 +36,7 @@ router.put('/:id',company.editProfile)
 // upload profile image
 router.post('/upload/editProfile/:randomImageKey', upload.single('filePic'), company.uploadImageEditProfile)
 //creating buy request
-router.put('/:id/buyRequest',company.createBuyRequest)
+router.put('/:id/buyRequest',company.checkCorporate,company.createBuyRequest)
 // upload image item buy request
 router.post('/upload/RequestItem/:randomImageKey', upload.single('itemPic'), company.uploadImageItem)
 //creating sell request
