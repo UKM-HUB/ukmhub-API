@@ -32,9 +32,13 @@ router.put('/:id/:acceptedMessagesId/acceptMessage',company.acceptMessage)
 //rejecting message
 router.put('/:id/:acceptedMessagesId/rejectMessage',company.rejectMessage)
 //edit company profile
-router.put('/:id',multer({ dest: './uploads/' }).single('uploads'),company.editProfile)
+router.put('/:id',company.editProfile)
+// upload profile image
+router.post('/upload/editProfile/:randomImageKey', upload.single('filePic'), company.uploadImageEditProfile)
 //creating buy request
-router.put('/:id/buyRequest',company.checkCorporate,multer({ dest: './uploads/' }).single('uploads'),company.createBuyRequest)
+router.put('/:id/buyRequest',company.createBuyRequest)
+// upload image item buy request
+router.post('/upload/RequestItem/:randomImageKey', upload.single('itemPic'), company.uploadImageItem)
 //creating sell request
 router.put('/:id/sellRequest',company.checkUkm,multer({ dest: './uploads/' }).single('uploads'),company.createSellRequest)
 //changing request status
@@ -55,22 +59,6 @@ router.delete('/',company.deleteAll)
 router.post('/resetPassword',company.resetPassword)
 //change password
 router.put('/:id/changePassword',company.changePassword)
-/* upload profile image */
-router.post('/upload/editProfile/:randomImageKey', upload.single('filePic'), (req, res) => {
-// req.file is the 'theseNamesMustMatch' file
-  console.log("masuk api");
-  console.log(req.file.originalname);
-    s3.putObject({
-      Bucket: process.env.BUCKET_NAME,
-      Key: 'images/'+req.params.randomImageKey + req.file.originalname,
-      Body: req.file.buffer,
-      ACL: 'public-read', // your permisions
-    }, (err, data) => {
-      if (err) return res.status(400).send(err);
-      console.log('OK MASUK DATANYA');
-      console.log(data);
-      res.send(data);
-    })
-})
+
 
 module.exports = router;

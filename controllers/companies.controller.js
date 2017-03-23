@@ -513,10 +513,32 @@ module.exports={
               res
             )
           })
-        // email not found
         }else{
+          // email not found
           res.json("Email not found")
         }
     })
+  },
+  uploadImageEditProfile: function(req, res){
+      s3.putObject({
+        Bucket: process.env.BUCKET_NAME,
+        Key: 'images/'+req.params.randomImageKey + req.file.originalname,
+        Body: req.file.buffer,
+        ACL: 'public-read', // your permisions
+      }, (err, data) => {
+        if (err) return res.status(400).send(err);
+        res.send(data);
+      })
+  },
+  uploadImageItem: function(req, res){
+      s3.putObject({
+        Bucket: process.env.BUCKET_NAME,
+        Key: 'images/items/'+req.params.randomImageKey + req.file.originalname,
+        Body: req.file.buffer,
+        ACL: 'public-read', // your permisions
+      }, (err, data) => {
+        if (err) return res.status(400).send(err);
+        res.send(data);
+      })
   }
 }
