@@ -21,7 +21,7 @@ describe('tes routing company', function () {
     chai.request(app).post('/api/company/auth/register').send({email: 'timogio99@gmail.com', password: '123456'}).end(function (err, res) {
       res.body.should.have.deep.property('email', 'timogio99@gmail.com')
       res.body.should.have.deep.property('edited', false)
-      res.body.should.have.deep.property('verified', false)
+      res.body.should.have.deep.property('verified', true)
       tampung = res.body.companyId
       done()
     })
