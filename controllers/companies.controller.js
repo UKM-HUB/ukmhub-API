@@ -531,9 +531,11 @@ module.exports={
       })
   },
   uploadImageItem: function(req, res){
+    console.log("server");
+    console.log(req.file.originalname);
       s3.putObject({
         Bucket: process.env.BUCKET_NAME,
-        Key: 'images/items/'+req.params.randomImageKey + req.file.originalname,
+        Key: 'images/'+req.params.randomImageKey + req.file.originalname,
         Body: req.file.buffer,
         ACL: 'public-read', // your permisions
       }, (err, data) => {
