@@ -2,6 +2,8 @@ branch-defaults:
   default:
     environment: ukmhub-api-dev
     group_suffix: null
+  master:
+    environment: ukmhub-api-dev
 global:
   application_name: ukmhub-api
   branch: null
