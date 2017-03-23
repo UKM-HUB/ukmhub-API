@@ -91,7 +91,7 @@ module.exports={
           company.description = req.body.description
           company.images = req.body.images||company.images
           company.updated_at = new Date()
-          edited = true
+          company.edited = true
           company.save(function(err){
             if(err){
               res.send(err)
