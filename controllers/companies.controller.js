@@ -31,6 +31,18 @@ function generatePassword() {
     return retVal;
 }
 
+var AWS = require('aws-sdk');
+
+// Amazon s3 config
+const s3 = new AWS.S3();
+
+AWS.config.update(
+  {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    subregion: 'ap-southeast-1',
+  });
+
 module.exports={
   register: function(req,res,next){
     var newCompany = new Company({
