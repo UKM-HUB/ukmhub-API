@@ -20,7 +20,6 @@ AWS_SECRET_ACCESS_KEY='we are using AWS EB, this variable is for upload photo'
 BUCKET_NAME='a folder name in aws'
 ```
 
-
 **Installing**
 ```
 $ npm install
@@ -30,6 +29,20 @@ $ npm install
 ```
 $ npm run dev
 ```
+
+## Built with
+* Node Js
+* Express - The web framework used
+* mongodb - The database
+* mongoose - The ODM database to manage database
+* mocha, chai and chai-http - For testing
+* sendgrid - The send email api
+* multer - For upload Photo
+* passport - For authentication
+* passport-local - For authentication
+* passport-hash - For authentication
+* jsonwebtoken - For authentication
+* cors - for access client side
 
 # END POINT
 
