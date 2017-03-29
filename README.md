@@ -1,9 +1,35 @@
 # UKM HUB
 ![UKMHUB](ukmhub.png?raw=true "Optional Title")
 
-UKMHUB web app create a bridge between corporate and SME's (Small & Medium Enterprises) with the same category in google map view.
-Corporate can see the details of UKM and vice versa. Create buy request and sell request to integrate both of them for Indonesia's UKM
-better future
+UKMHUB is a web application create to be a bridge between corporate and SME's (Small & Medium Enterprises) with the same category.
+
+Corporate ( Big Enterprises ) can see the details of UKM/SME and vice versa. Create buy request and sell request to integrate both of them for Indonesia's UKM/SME
+better future.
+
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+** Prerequisites **
+
+before running this project you must create a file `.env` and inside the file you must fill the variable:
+```
+APIKEY_SENDGRID_UKMHUB='you need to get the api key from sendgrid api by register in sendgrid'
+EMAIL_FROM='your email'
+AWS_ACCESS_KEY_ID='we are using AWS EB, this variable is for upload photo'
+AWS_SECRET_ACCESS_KEY='we are using AWS EB, this variable is for upload photo'
+BUCKET_NAME='a folder name in aws'
+```
+
+
+**Installing**
+```
+$ npm install
+```
+
+**Usage**
+```
+$ npm run dev
+```
 
 # END POINT
 
