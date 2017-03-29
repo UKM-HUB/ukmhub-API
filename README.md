@@ -9,7 +9,7 @@ better future.
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-** Prerequisites **
+**Prerequisites**
 
 before running this project you must create a file `.env` and inside the file you must fill the variable:
 ```
