@@ -1,7 +1,7 @@
 # UKM HUB
 ![UKMHUB](ukmhub.png?raw=true "Optional Title")
 
-UKMHUB is a web application create to be a bridge between corporate and SME's (Small & Medium Enterprises) with the same category.
+UKMHUB is a web application to create a bridge between corporate and SME's (Small & Medium Enterprises) with the same category.
 
 Corporate ( Big Enterprises ) can see the details of UKM/SME and vice versa. Create buy request and sell request to integrate both of them for Indonesia's UKM/SME
 better future.
@@ -27,22 +27,22 @@ $ npm install
 
 **Usage**
 ```
-$ npm run dev
+$ npm start
 ```
 
 ## Built with
-* Node Js
-* Express - The web framework used
-* mongodb - The database
-* mongoose - The ODM database to manage database
-* mocha, chai and chai-http - For testing
-* sendgrid - The send email api
-* multer - For upload Photo
-* passport - For authentication
-* passport-local - For authentication
-* passport-hash - For authentication
-* jsonwebtoken - For authentication
-* cors - for access client side
+* __*Node Js*__ - Javascript Backend
+* __*Express*__ - The web framework used for API routing
+* __*mongodb*__ - ODM (Object Document Mapper) Database
+* __*mongoose*__ - The ODM database to manage the schema
+* __*mocha, chai and chai-http*__ - API testing
+* __*sendgrid*__ - Sending email (must use .env file)
+* __*multer*__ - Photo upload
+* __*passport*__ - User Authentication
+* __*passport-local*__ - User Authentication
+* __*passport-hash*__ - Generate random password
+* __*jsonwebtoken*__ - To verify the user
+* __*cors*__ - Access client side
 
 # END POINT
 
@@ -76,7 +76,7 @@ $ npm run dev
 
 ## Corporate
 
-1.  Corporate must first register using their company email and password, after registration the user will redirected to the update company profile page. If the update succeeded then the user must be verified first by the coop before using the app (assuming the user has been approved by admin cooperative)
+1.  Corporate must first register using their company email and password, after registration the user will be redirected to the update company profile page. If the update succeeded then the user must be verified first by the admin cooperatives before the corporate can use the app (assuming the user has been approved by admin cooperative)
 
 2. Corporate verified by admin cooperatives can use the search feature of SMEs about the same in accordance with the corporate category. SMEs are listed in map view and a list view which enables corporate to see the details of SMEs
 
@@ -88,18 +88,18 @@ $ npm run dev
 
 1. User (SMEs) must first register using their company email and password, after registration the user will be redirected to the update company profile page. If the update succeeded then the user must be verified first by the coop before using the app (assuming the user has been approved by admin cooperative). These step is similar to corporate only the difference in type of company.
 
-2. SMEs that have been verified by admin cooperative can use the search feature approximately the same in accordance with the SME category. Search map view and list view helping SMEs to see the detail of corporate
+2. SMEs that have been verified by admin cooperative can use the search feature approximately the same in accordance with the SMEs category. Search map view and list view are helping SMEs to see the details of the corporate.
 
 3. SMEs can create requests that can be seen by the surrounding corporate with the same category, request can be responded by the corporate by sending a reply message.
 
-4. SMEs can send a letter of offer to respond to requests from corporate, this letter is used to make offers to corporate-related according to the category.
+4. SMEs can send a letter of offer to respond the requests from corporate, this letter is used to make offers to corporate-related according to the category.
 
 ## Cooperation
 
-1. Ccooperatives can log in to enter the main page and can see the list of listed company (whether Corporate or SME) as well as the details.
+1. Cooperatives can log in to enter the main page and can see the list of listed company (whether Corporate or SME) as well as the details.
 
 2. To verify registered company.
 
-3. be able to monitor the price in order to avoid price fluctuations that can damage the market price. (Optional feature)
+3. Be able to monitor the price in order to avoid price fluctuations that can damage the market price. (Optional feature)
 
 Note: Cooperation is in progress
