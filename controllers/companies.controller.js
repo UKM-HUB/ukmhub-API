@@ -75,14 +75,16 @@ module.exports={
       res.send({ token: token, companyId: newCompany._id ,verified: newCompany.verified,edited: newCompany.edited,email:newCompany.email})
     })
   },
+
   login: function(req, res, next){
     let token = '';
     Company.findOne({email:req.body.email}).then(function(result){
-      token = jwt.sign({ email: req.body.email, companyId: result._id, verified: result.verified,edited: result.edited }, 'ukmhub');
+      token = jwt.sign({ email: req.body.email, companyId: result._id, verified: result.verified, edited: result.edited }, 'ukmhub');
       res.send({ token: token, companyId: result._id ,verified: result.verified,edited: result.edited })
     }
   )
   },
+
   editProfile: function(req,res){
 
     validationEditProfile(req.body.name, req.body.type, req.body.category, req.body.lat, req.body.lng, req.body.address, req.body.phone, req.body.description, res, function(){
