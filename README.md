@@ -1,10 +1,48 @@
-# UKM HUB API
-[![Build Status](https://travis-ci.org/UKM-HUB/ukmhub-API.svg?branch=master)](https://travis-ci.org/UKM-HUB/ukmhub-API)
-![UKMHUB](https://github.com/UKM-HUB/ukm_hub/blob/master/ukmhub.png)
+# UKM HUB
+![UKMHUB](ukmhub.png?raw=true "Optional Title")
 
-UKMHUB web app create a bridge between corporate and UKM (Small & Medium Companies) with the same category in google map view.
-Corporate can see the details of UKM and vice versa. Create buy request and sell request to integrate both of them for Indonesia's UKM
-better future
+UKMHUB is a web application to create a bridge between corporate and SME's (Small & Medium Enterprises) with the same category.
+
+Corporate ( Big Enterprises ) can see the details of UKM/SME and vice versa. Create buy request and sell request to integrate both of them for Indonesia's UKM/SME
+better future.
+
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+**Prerequisites**
+
+before running this project you must create a file `.env` and inside the file you must fill the variable:
+```
+APIKEY_SENDGRID_UKMHUB='you need to get the api key from sendgrid api by register in sendgrid'
+EMAIL_FROM='your email'
+AWS_ACCESS_KEY_ID='we are using AWS EB, this variable is for upload photo'
+AWS_SECRET_ACCESS_KEY='we are using AWS EB, this variable is for upload photo'
+BUCKET_NAME='a folder name in aws'
+```
+
+**Installing**
+```
+$ npm install
+```
+
+**Usage**
+```
+$ npm start
+```
+
+## Built with
+* __*Node Js*__ - Javascript Backend
+* __*Express*__ - The web framework used for API routing
+* __*mongodb*__ - ODM (Object Document Mapper) Database
+* __*mongoose*__ - The ODM database to manage the schema
+* __*mocha, chai and chai-http*__ - API testing
+* __*sendgrid*__ - Sending email (must use .env file)
+* __*multer*__ - Photo upload
+* __*passport*__ - User Authentication
+* __*passport-local*__ - User Authentication
+* __*passport-hash*__ - Generate random password
+* __*jsonwebtoken*__ - To verify the user
+* __*cors*__ - Access client side
 
 # END POINT
 
@@ -38,28 +76,30 @@ better future
 
 ## Corporate
 
-1. User (corporate) pertama kali harus melakukan registrasi menggunakan email dan password, setelah itu user akan menerima email berupa konfirmasi registrasi. setelah melakukan konfirmasi maka user dapat melakukan login dan masuk ke halaman update profile . setelah melakukan pengisian kelengkapan yang dibutuhkan maka user akan diarahkan ke halaman utama (dengan asumsi user telah disetujui oleh admin koperasi)
+1.  Corporate must first register using their company email and password, after registration the user will be redirected to the update company profile page. If the update succeeded then the user must be verified first by the admin cooperatives before the corporate can use the app (assuming the user has been approved by admin cooperative)
 
-2. corporate yang telah diverifikasi oleh admin koperasi dapat menggunakan fitur pencarian UKM sekitar sesuai kategori yang sama dengan corporate. tampilan pencarian UKM dapat berupa map view dan list view yang membantu corporate untuk melihat detail UKM
+2. Corporate verified by admin cooperatives can use the search feature of SMEs about the same in accordance with the corporate category. SMEs are listed in map view and a list view which enables corporate to see the details of SMEs
 
-3. Corporate dapat melakukan buy request yaitu melakukan permintaan untuk melakukan pembelian yang dapat dilihat oleh UKM disekitarnya , permohonan pembelian ini dapat direspon oleh UKM dengan mengirimkan surat penawaran.
+3. Corporate can create request that is to demand to make purchases or anything that can be seen by SMEs around them, the request can be responded by SMEs by sending a letter of offer.
 
-4. Corporate dapat mengirimkan purchase order untuk merespon sell request dari UKM, purchase order ini digunakan untuk melakukan permohonan pembelian ke UKM yang terkait sesuai dengan kategori.
+4. Corporate can send a respond to requests from SMEs request list, and they will receive an email confirmation to accept or decline the offer.
 
-## UKM
+## SME's (Small & Medium Enterprises)
 
-1. User (ukm) pertama kali harus melakukan registrasi menggunakan email dan password, setelah itu user akan menerima email berupa konfirmasi registrasi. setelah melakukan konfirmasi maka user dapat melakukan login dan masuk ke halaman update profile . setelah melakukan pengisian kelengkapan yang dibutuhkan maka user akan diarahkan ke halaman utama (dengan asumsi user telah disetujui oleh admin koperasi)
+1. User (SMEs) must first register using their company email and password, after registration the user will be redirected to the update company profile page. If the update succeeded then the user must be verified first by the coop before using the app (assuming the user has been approved by admin cooperative). These step is similar to corporate only the difference in type of company.
 
-2. UKM yang telah diverifikasi oleh admin koperasi dapat menggunakan fitur pencarian corporate sekitar sesuai kategori yang sama dengan UKM. tampilan pencarian corporate dapat berupa map view dan list view yang membantu UKM untuk melihat detail corporate
+2. SMEs that have been verified by admin cooperative can use the search feature approximately the same in accordance with the SMEs category. Search map view and list view are helping SMEs to see the details of the corporate.
 
-3. UKM dapat melakukan sell request yaitu melakukan permintaan untuk melakukan penjualan yang dapat dilihat oleh corporate disekitarnya , permohonan penjualan ini dapat direspon oleh corporate dengan mengirimkan purchase order.
+3. SMEs can create requests that can be seen by the surrounding corporate with the same category, request can be responded by the corporate by sending a reply message.
 
-4. UKM dapat mengirimkan surat penawaran untuk merespon buy request dari corporate, surat ini digunakan untuk melakukan penawaran kepada corporate yang terkait sesuai dengan kategori.
+4. SMEs can send a letter of offer to respond the requests from corporate, this letter is used to make offers to corporate-related according to the category.
 
-## koperasi
+## Cooperation
 
-1. koperasi dapat melakukan login untuk masuk ke halaman utama dan dapat melihat list company terdaftar (baik corporate maupun UKM) serta detailnya.
+1. Cooperatives can log in to enter the main page and can see the list of listed company (whether Corporate or SME) as well as the details.
 
-2. Melakukan verifikasi company yang telah terdaftar.
+2. To verify registered company.
 
-3. dapat melakukan monitoring harga agar tidak terjadi fluktuasi harga yang dapat merusak harga pasar.(fitur opsional)
+3. Be able to monitor the price in order to avoid price fluctuations that can damage the market price. (Optional feature)
+
+Note: Cooperation is in progress
